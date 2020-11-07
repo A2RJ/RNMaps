@@ -1,5 +1,5 @@
 {
-  "name": "TesKedua",
+  "name": "mapbox",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,14 +10,16 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@mapbox/mapbox-sdk": "^0.11.0",
     "@react-native-community/geolocation": "^2.0.2",
+    "@react-native-mapbox-gl/maps": "^8.1.0-rc.9",
+    "@turf/helpers": "^6.1.4",
     "react": "16.13.1",
-    "react-native": "0.63.3",
-    "react-native-maps": "0.27.1"
+    "react-native": "0.63.3"
   },
   "devDependencies": {
     "@babel/core": "7.12.3",
-    "@babel/runtime": "7.12.1",
+    "@babel/runtime": "7.12.5",
     "@react-native-community/eslint-config": "1.1.0",
     "babel-jest": "25.5.1",
     "eslint": "6.8.0",

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "TesKedua-tvOS.app"
-               BlueprintName = "TesKedua-tvOS"
-               ReferencedContainer = "container:TesKedua.xcodeproj">
+               BuildableName = "mapbox-tvOS.app"
+               BlueprintName = "mapbox-tvOS"
+               ReferencedContainer = "container:mapbox.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "TesKedua-tvOSTests.xctest"
-               BlueprintName = "TesKedua-tvOSTests"
-               ReferencedContainer = "container:TesKedua.xcodeproj">
+               BuildableName = "mapbox-tvOSTests.xctest"
+               BlueprintName = "mapbox-tvOSTests"
+               ReferencedContainer = "container:mapbox.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "TesKedua-tvOS.app"
-            BlueprintName = "TesKedua-tvOS"
-            ReferencedContainer = "container:TesKedua.xcodeproj">
+            BuildableName = "mapbox-tvOS.app"
+            BlueprintName = "mapbox-tvOS"
+            ReferencedContainer = "container:mapbox.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "TesKedua-tvOS.app"
-            BlueprintName = "TesKedua-tvOS"
-            ReferencedContainer = "container:TesKedua.xcodeproj">
+            BuildableName = "mapbox-tvOS.app"
+            BlueprintName = "mapbox-tvOS"
+            ReferencedContainer = "container:mapbox.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

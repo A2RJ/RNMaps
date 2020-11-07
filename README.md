@@ -1,2 +1,0 @@
-# RNMaps
-React Native Maps
