@@ -1,5 +1,5 @@
 import React, {Component, useState, useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
+import { Alert, View, Text, Button} from 'react-native';
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import {lineString as makeLineString} from '@turf/helpers';
 import MapboxDirectionsFactory from '@mapbox/mapbox-sdk/services/directions';
@@ -12,35 +12,24 @@ MapboxGL.setAccessToken(accessToken);
 const directionsClient = MapboxDirectionsFactory({accessToken});
 
 export default App = () => {
-
-  // Masih terdapat masalah yakni bagaimana cara melakukan request data 
-  // current location user sekaligus dapat mengembalikan nilai
-  // untuk route fecthRoute di useEffect
   
-  // Bug latitude dan longitude pesan error must between -90 and 90
-  
-  const [A, setA] = useState([])
+  const [startingPoint, setStartingPoint] = useState([])
+  const destinationPoint = [ 117.42784,-8.50641];
   const [route, setRoute] = useState(null);
-  const startingPoint = [ 117.4324633333, -8.49743333333];
-  const destinationPoint = [ 117.42465408310176,-8.498927206069524];
 
   const startDestinationPoints = [startingPoint,  destinationPoint]
 
   useEffect(() => {
     findCoordinates()
-    fetchRoute()
-  }, [A])
-  
-  // console.log(A) setelah useEffect => data current position user Setelah data current
-  // position user ditemukan langsung kirim ke API, kemudian dari API data disimpan
-  // langsung ke var startingPoint sehingga user dapat live position
+  }, [])
 
   findCoordinates = () => {
     Geolocation.getCurrentPosition(
       position => {
-        const location = position.coords;
-        setA([location.latitude, location.longitude])
-        
+        const location = [position.coords.longitude, position.coords.latitude];
+        // const location = [117.43241,-8.49731];
+        setStartingPoint(location)
+        fetchRoute(location)
       },
       error => Alert.alert(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
@@ -48,10 +37,12 @@ export default App = () => {
   };
 
 
-  const fetchRoute = async () => {
+  const fetchRoute = async (location) => {
+    console.log(location);
+    // await findCoordinates()
     const reqOptions = {
       waypoints: [
-        {coordinates: startingPoint},
+        {coordinates: location},
         {coordinates: destinationPoint},
       ],
       profile: 'driving-traffic',
@@ -87,11 +78,12 @@ export default App = () => {
   }
 
 
-  return (
+  return startingPoint.length > 0 ? (
     <View style={{flex: 1, height: "100%", width: "100%" }}>
       <MapboxGL.MapView
         styleURL={MapboxGL.StyleURL.Street}
         zoomLevel={11}
+        zoomLevel={true}
         centerCoordinate={startingPoint}
         style={{flex: 1}}>
           <MapboxGL.Camera
@@ -111,5 +103,14 @@ export default App = () => {
         }
       </MapboxGL.MapView>
     </View>
-  )
+  ) : 
+  <View>
+    <Text>Lokasi tidak ditemukan { startingPoint }</Text>
+    <Button
+      onPress={findCoordinates}
+      title="Learn More"
+      color="#841584"
+      accessibilityLabel="Learn more about this purple button"
+    />
+  </View>
 }
