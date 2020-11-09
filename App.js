@@ -91,12 +91,16 @@ export default App = () => {
             centerCoordinate={startingPoint}
             animationMode={'flyTo'}
             animationDuration={0}
-          >
+            >
           </MapboxGL.Camera>
+          <MapboxGL.UserLocation
+            visible={true}
+            showsUserHeadingIndicator={false}
+          />
           {renderAnnotations()}
           {
-          route && (
-           <MapboxGL.ShapeSource id='shapeSource' shape={route}>
+            route && (
+              <MapboxGL.ShapeSource id='shapeSource' shape={route}>
               <MapboxGL.LineLayer id='lineLayer' style={{lineWidth: 5, lineJoin: 'bevel', lineColor: '#ff0000'}} />
             </MapboxGL.ShapeSource>
           )
