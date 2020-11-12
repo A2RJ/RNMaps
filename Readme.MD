@@ -1,4 +1,6 @@
 Note <br>
 [x] Tambah tombol center coordinates agar saat geser maps dapat kembali ke tengah <br>
 [x] Ubah icon kurir menjadi driver ex: motor dll <br>
-[x] Tambah fungsi pada app user untuk meload data lokasi driver setiap detik agar user tahu dimana lokasi driver <br>
+[x] Pelajari fungsi built-in mapbox dalam membuat turn-by-turn seperti followserLocation agar dapat update route juga dll dengan logika sama
+[x] Pelajari response dari mapbox direction API agar dapat membuat turn-by-turn sendiri yakni dengan melakukan perbandingan coordinat dengan pertigaan dirute tersebut layaknya prinsip array 0, 1, 2 dst ketika dekat pertigaan maka update index 0 menjadi 1 sehingga akan menampilkan pesan turn-by-turn, dapat juga melakukan branch direpo official agar digunakan oleh banyak orang <br>
+[x] Kurir live location dengan cara update lokasi kurir dikirim lewat api dan diterima oleh user, sementara prinsip useEffect adalah merender ulang setiap ada perubahan state, ini akan menjadi masalah ketika user user menggunakan app krn apk terus merender ulang semua komponen, untuk mencegah hal ini tentu harus menggunakan prinsip Optimasi yang hanya akan merender child component saja yg dalam hal ini adalah render anotation dan route-nya, sehingga route akan dinamis krn hanya route yang akan dirender ulang<br>
