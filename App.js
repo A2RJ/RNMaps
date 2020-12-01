@@ -16,7 +16,6 @@ const destinationPoint = [117.42784, -8.50641];
 export default App = () => {
 
   const [startingPoint, setStartingPoint] = useState([])
-  const [update, setupdate] = useState([])
   const [route, setRoute] = useState(null);
   const startDestinationPoints = [startingPoint, destinationPoint]
 
@@ -75,7 +74,8 @@ export default App = () => {
   return (
     <View style={{ flex: 1, height: "100%", width: "100%" }}>
       { startingPoint.length > 0 ?
-        <MapboxGL.MapView
+        <View>
+          <MapboxGL.MapView
           styleURL={MapboxGL.StyleURL.Street}
           zoomLevel={15}
           zoomEnabled={true}
@@ -84,6 +84,7 @@ export default App = () => {
           logoEnabled={false}
           compassEnabled={true}
           style={{ flex: 1 }}>
+
           <MapboxGL.Camera
             zoomLevel={15}
             centerCoordinate={startingPoint}
@@ -92,25 +93,27 @@ export default App = () => {
             followUserLocation={true}
             followUserMode="compass"
             followZoomLevel={15} />
+          {/* Untuk menampilkan icon driver, agar dapat tracking maka connect socket.io kemudian coordinates listen */}
           <MapboxGL.MarkerView coordinate={startingPoint}>
             <FontAwesomeIcon icon={faCoffee} />
           </MapboxGL.MarkerView>
-          {/* <MapboxGL.UserLocation coordinate={startingPoint} showsUserHeadingIndicator={true} animated={true}></MapboxGL.UserLocation> */}
-          
+
           {renderAnnotations()}
-          {
-            route && (
+          { route && (
               <MapboxGL.ShapeSource id='shapeSource' shape={route}>
                 <MapboxGL.LineLayer id='lineLayer' style={{ lineWidth: 5, lineJoin: 'bevel', lineColor: '#ff0000' }} />
               </MapboxGL.ShapeSource>
-            )
-          }
-        </MapboxGL.MapView>
+            )}
+          </MapboxGL.MapView>
+
+        </View>
+
         :
         <View>
-          <Button onPress={() => findCoordinates()} title="Pick location"/>
+          <Button onPress={() => findCoordinates()} title="Pick location" />
         </View>
       }
+{/* <Button onPress={ () => console.log('button') } title="Maps show" />        */}
     </View>
   )
 }
