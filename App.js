@@ -4,7 +4,8 @@ import MapboxGL from '@react-native-mapbox-gl/maps';
 import { lineString as makeLineString } from '@turf/helpers';
 import MapboxDirectionsFactory from '@mapbox/mapbox-sdk/services/directions';
 import Geolocation from '@react-native-community/geolocation';
-
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 const accessToken = 'pk.eyJ1IjoiYTJyaiIsImEiOiJja2g3OW11N3MwNmh1MzBsbDQ4NGVrYWNtIn0.uvhpm1k_6EIRZXyOhHq7QQ';
 
 MapboxGL.setAccessToken(accessToken);
@@ -15,6 +16,7 @@ const destinationPoint = [117.42784, -8.50641];
 export default App = () => {
 
   const [startingPoint, setStartingPoint] = useState([])
+  const [update, setupdate] = useState([])
   const [route, setRoute] = useState(null);
   const startDestinationPoints = [startingPoint, destinationPoint]
 
@@ -70,44 +72,45 @@ export default App = () => {
     );
   }
 
-  return startingPoint.length > 0 ? (
+  return (
     <View style={{ flex: 1, height: "100%", width: "100%" }}>
-      <MapboxGL.MapView
-        styleURL={MapboxGL.StyleURL.Street}
-        zoomLevel={11}
-        zoomEnabled={true}
-        centerCoordinate={startingPoint}
-        style={{ flex: 1 }}>
-        <MapboxGL.Camera
-          zoomLevel={11}
+      { startingPoint.length > 0 ?
+        <MapboxGL.MapView
+          styleURL={MapboxGL.StyleURL.Street}
+          zoomLevel={15}
+          zoomEnabled={true}
           centerCoordinate={startingPoint}
-          animationMode={'flyTo'}
-          animationDuration={0}
-        >
-        </MapboxGL.Camera>
-        {/* Buat saat user berpindah maka route juga berubah dgn menerapkan onchange maka set startingPoint baru */}
-        {/* <MapboxGL.UserLocation
-          visible={true}
-          showsUserHeadingIndicator={false}
-        /> */}
-        {renderAnnotations()}
-        {
-          route && (
-            <MapboxGL.ShapeSource id='shapeSource' shape={route}>
-              <MapboxGL.LineLayer id='lineLayer' style={{ lineWidth: 5, lineJoin: 'bevel', lineColor: '#ff0000' }} />
-            </MapboxGL.ShapeSource>
-          )
-        }
-      </MapboxGL.MapView>
+          rotateEnabled={true}
+          logoEnabled={false}
+          compassEnabled={true}
+          style={{ flex: 1 }}>
+          <MapboxGL.Camera
+            zoomLevel={15}
+            centerCoordinate={startingPoint}
+            animationMode={'flyTo'}
+            animationDuration={2000}
+            followUserLocation={true}
+            followUserMode="compass"
+            followZoomLevel={15} />
+          <MapboxGL.MarkerView coordinate={startingPoint}>
+            <FontAwesomeIcon icon={faCoffee} />
+          </MapboxGL.MarkerView>
+          {/* <MapboxGL.UserLocation coordinate={startingPoint} showsUserHeadingIndicator={true} animated={true}></MapboxGL.UserLocation> */}
+          
+          {renderAnnotations()}
+          {
+            route && (
+              <MapboxGL.ShapeSource id='shapeSource' shape={route}>
+                <MapboxGL.LineLayer id='lineLayer' style={{ lineWidth: 5, lineJoin: 'bevel', lineColor: '#ff0000' }} />
+              </MapboxGL.ShapeSource>
+            )
+          }
+        </MapboxGL.MapView>
+        :
+        <View>
+          <Button onPress={() => findCoordinates()} title="Pick location"/>
+        </View>
+      }
     </View>
-  ) :
-    <View>
-      <Text>Lokasi tidak ditemukan {startingPoint}</Text>
-      <Button
-        onPress={findCoordinates}
-        title="Learn More"
-        color="#841584"
-        accessibilityLabel="Learn more about this purple button"
-      />
-    </View>
+  )
 }

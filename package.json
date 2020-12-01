@@ -10,12 +10,18 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-native-fontawesome": "^0.2.6",
     "@mapbox/mapbox-sdk": "^0.11.0",
     "@react-native-community/geolocation": "^2.0.2",
     "@react-native-mapbox-gl/maps": "^8.1.0-rc.9",
     "@turf/helpers": "^6.1.4",
+    "i": "^0.3.6",
+    "npm": "^6.14.9",
     "react": "16.13.1",
-    "react-native": "0.63.3"
+    "react-native": "0.63.3",
+    "react-native-svg": "^12.1.0"
   },
   "devDependencies": {
     "@babel/core": "7.12.3",
