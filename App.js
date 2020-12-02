@@ -6,6 +6,8 @@ import MapboxDirectionsFactory from '@mapbox/mapbox-sdk/services/directions';
 import Geolocation from '@react-native-community/geolocation';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import openMap, { createOpenLink } from 'react-native-open-maps'
+
 const accessToken = 'pk.eyJ1IjoiYTJyaiIsImEiOiJja2g3OW11N3MwNmh1MzBsbDQ4NGVrYWNtIn0.uvhpm1k_6EIRZXyOhHq7QQ';
 
 MapboxGL.setAccessToken(accessToken);
@@ -14,7 +16,7 @@ const directionsClient = MapboxDirectionsFactory({ accessToken });
 const destinationPoint = [117.42784, -8.50641];
 
 export default App = () => {
-  const mapRef = useRef(null);
+  const map = useRef(null);
   const [startingPoint, setStartingPoint] = useState([])
   const [route, setRoute] = useState(null);
   const startDestinationPoints = [startingPoint, destinationPoint]
@@ -51,7 +53,8 @@ export default App = () => {
   }
 
   const onRegionDidChange = async () => {
-    this.mapRef.camera.moveTo(startingPoint, 200)
+      await map.current.flyTo();
+      // setStartingPoint(startingPoint);
   }
 
   const renderAnnotations = () => {
@@ -78,6 +81,7 @@ export default App = () => {
   return startingPoint.length > 0 ? (
     <View style={{ flex: 1 }}>
       <MapboxGL.MapView
+        ref={ map }
         styleURL={MapboxGL.StyleURL.Street}
         zoomLevel={15}
         zoomEnabled={true}
@@ -85,6 +89,10 @@ export default App = () => {
         rotateEnabled={true}
         logoEnabled={false}
         compassEnabled={true}
+        showUserLocation={true}
+        onRegionDidChange={onRegionDidChange}
+        // onUserLocationUpdate={state yg akan merubah coords}
+        // userTrackingMode={MapboxGL.UserTrackingModes.Follow}
         style={{ flex: 1 }}>
         <MapboxGL.Camera
           zoomLevel={15}
@@ -94,7 +102,8 @@ export default App = () => {
           followUserLocation={true}
           followUserMode="compass"
           followZoomLevel={15} />
-        {/* Untuk menampilkan icon driver, agar dapat tracking maka connect socket.io kemudian coordinates listen */}
+        {/* Untuk menampilkan icon driver, agar dapat tracking maka connect socket.io kemudian coordinates listen
+          hanya render ulang markerview dan renderAnnotations saja */}
         <MapboxGL.MarkerView coordinate={startingPoint}>
           <FontAwesomeIcon icon={faCoffee} />
         </MapboxGL.MarkerView>
@@ -106,8 +115,8 @@ export default App = () => {
           </MapboxGL.ShapeSource>
         )}
       </MapboxGL.MapView>
-      <Button onPress={ () => onRegionDidChange()}
-      title="center" style={{
+      <Button onPress={ onRegionDidChange }
+      title="Go to" style={{
             position: 'absolute',
             bottom: 0,
             width: '100%'
@@ -115,6 +124,10 @@ export default App = () => {
     </View>
   ) :
     <View>
-      <Button onPress={() => findCoordinates()} title="Pick location" />
+      <Button onPress={() => findCoordinates()} title="Pick location"  style={{
+            position: 'absolute',
+            bottom: 0,
+            width: '100%'
+          }}/>
     </View>
 }
